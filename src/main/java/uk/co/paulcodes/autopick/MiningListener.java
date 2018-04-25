@@ -32,7 +32,7 @@ public class MiningListener implements Listener {
                 e.getBlock().setType(Material.AIR);
             }
         }else{
-            p.sendMessage(ChatColor.RED + "");
+            p.sendMessage(Core.prefix + Core.nopermission);
         }
     }
 
