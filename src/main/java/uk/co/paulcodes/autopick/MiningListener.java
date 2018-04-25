@@ -1,5 +1,7 @@
 package uk.co.paulcodes.autopick;
 
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,14 +17,22 @@ public class MiningListener implements Listener {
     @EventHandler
     private void onBlockBreak(BlockBreakEvent e) {
         Player p = e.getPlayer();
-        if(p.getItemInHand().getType() == Material.WOOD_PICKAXE || p.getItemInHand().getType() == Material.STONE_PICKAXE || p.getItemInHand().getType() == Material.IRON_PICKAXE || p.getItemInHand().getType() == Material.GOLD_PICKAXE || p.getItemInHand().getType() == Material.DIAMOND_PICKAXE) {
-            for (ItemStack items : e.getBlock().getDrops()) {
-                p.getInventory().addItem(items);
+        if (p.hasPermission("autopickup.*")) {
+            if (p.getGameMode() == GameMode.SURVIVAL) {
+                for (ItemStack items : e.getBlock().getDrops()) {
+                    if (p.getInventory().firstEmpty() == -1) {
+                        e.getBlock().getLocation().getWorld().dropItem(e.getBlock().getLocation(), items);
+                    } else {
+                        p.getInventory().addItem(items);
+                    }
+                }
+                p.giveExp(e.getExpToDrop());
+                e.setCancelled(true);
+                e.setExpToDrop(0);
+                e.getBlock().setType(Material.AIR);
             }
-            p.setExp(e.getExpToDrop());
-            e.setCancelled(true);
-            e.setExpToDrop(0);
-            e.getBlock().setType(Material.AIR);
+        }else{
+            p.sendMessage(ChatColor.RED + "");
         }
     }
 
