@@ -53,7 +53,7 @@
             </resource>
         </resources>
 
-        <finalName>${project.name}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
         <defaultGoal>clean install</defaultGoal>
         <!-- Plugins -->
         <plugins>
