@@ -5,3 +5,7 @@ author: ${project.author}
 permissions:
    autopickup.*:
       default: op
+commands:
+   autopick:
+      usage: /autopick reload
+      permission: autopickup.reload
