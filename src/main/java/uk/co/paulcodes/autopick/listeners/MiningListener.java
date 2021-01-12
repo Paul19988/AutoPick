@@ -27,7 +27,7 @@ public class MiningListener implements Listener {
                     e.setExpToDrop(0);
                     p.giveExp(e.getExpToDrop());
                 }
-                e.getBlock().breakNaturally(new ItemStack(Material.AIR));
+                e.getBlock().setType(Material.AIR, true);
             }
         }
     }
