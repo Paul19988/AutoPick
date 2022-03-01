@@ -14,7 +14,7 @@ public class AutoPick extends JavaPlugin {
     public void onEnable() {
         dataHolder = new DataHolder(this);
 
-        getServer().getPluginManager().registerEvents(new MiningListener(), this);
+        getServer().getPluginManager().registerEvents(new MiningListener(this), this);
 
         getServer().getPluginCommand("autopick").setExecutor(new AutoPickCommand());
         getServer().getPluginCommand("autopick").setTabCompleter(new AutoPickCompleter());

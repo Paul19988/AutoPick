@@ -14,6 +14,9 @@ public class DataHolder {
         this.autoPick = autoPick;
 
         populateMessages();
+        if(!autoPick.getConfig().isBoolean("dropFull")) {
+            autoPick.getConfig().set("dropFull", true);
+        }
     }
 
     public String loadMessage(String messageType) {

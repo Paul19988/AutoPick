@@ -7,8 +7,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import uk.co.paulcodes.autopick.AutoPick;
 
 public class MiningListener implements Listener {
+
+    private AutoPick plugin;
+
+    public MiningListener(AutoPick plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     private void onBlockBreak(BlockBreakEvent e) {
@@ -17,7 +24,9 @@ public class MiningListener implements Listener {
             if(p.hasPermission("autopickup.item.*") || p.hasPermission("autopickup.item." + e.getBlock().getType().toString().toUpperCase())) {
                 for(ItemStack items : e.getBlock().getDrops()) {
                     if(p.getInventory().firstEmpty() == -1) {
-                        e.getBlock().getLocation().getWorld().dropItem(e.getBlock().getLocation(), items);
+                        if(plugin.getConfig().getBoolean("dropFull")) {
+                            e.getBlock().getLocation().getWorld().dropItem(e.getBlock().getLocation(), items);
+                        }
                     } else {
                         p.getInventory().addItem(items);
                     }
